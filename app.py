@@ -20,20 +20,6 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-#Set DATA pin for DHT sensor
-pinDHT = 4
-
-def readingDHT():
-    while True:
-        #Read Temp and Hum from DHT22
-        global h,t 
-        h,t = dht.read_retry(dht.DHT22, pinDHT)
-        #Print Temperature and Humidity on Shell window
-        print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(t,h))
-        time.sleep(5) #Wait 5 seconds and read again
-
-threading.Thread(target=readingDHT).start()
-
 
 @app.route('/')
 def index():
@@ -42,3 +28,6 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+
+
+# select datetime(timestamp, 'localtime') as timestamp, temperature, humidity from weather;
