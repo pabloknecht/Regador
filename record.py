@@ -4,7 +4,8 @@ import sqlite3
 
 def main():
     #Set DATA pin for DHT sensor
-    database = sqlite3.connect('data.db')
+    database_con = sqlite3.connect('data.db')
+    database = database_con.cursor()
     pinDHT = 4
 
     while True:
