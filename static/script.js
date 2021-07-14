@@ -47,37 +47,6 @@ function initialize() {
         }]
       }
     }
-  }), new Chart(document.getElementById("chart1"), {
-    type: 'bar',
-    data: {
-      //labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: 'rgba(255, 99, 132, 0.1)',
-        borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: speed * 1.5,
-        easing: 'linear'
-      },
-      legend: false,
-      scales: {
-        xAxes: [{
-          type: "time",
-          display: true
-        }],
-        yAxes: [{
-          ticks: {
-            max: 1,
-            min: -1
-          }
-        }]
-      }
-    }
   }));
 }
 
