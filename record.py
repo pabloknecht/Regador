@@ -4,8 +4,10 @@ import sqlite3
 
 def main():
     #Set DATA pin for DHT sensor
-    database = sqlite3.connect('data.db')
     pinDHT = 4
+
+    #Open DB connection
+    database = sqlite3.connect('data.db')
 
     while True:
         #Read Temp and Hum from DHT22
@@ -18,7 +20,7 @@ def main():
         database.execute("INSERT INTO weather (timestamp, temperature, humidity) VALUES (CURRENT_TIMESTAMP, ?, ?)", (t, h))
         database.commit()
         
-        time.sleep(10) #Wait 5 seconds and read again
+        time.sleep(10) #Wait 10 seconds and read again
 
 if __name__ == "__main__":
     main()

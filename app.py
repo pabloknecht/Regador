@@ -4,6 +4,7 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 import Adafruit_DHT as dht
 import time
+import sqlite3
 import threading
 import datetime
 
@@ -27,8 +28,20 @@ def index():
 
 @app.route("/process", methods=["POST"])
 def process():
-    return jsonify({'num' : 13})
+    #Open DB connection
+    database = sqlite3.connect('data.db')
 
+    #Creating a cursor object using the cursor() method
+    cursor = database.cursor()
+
+    #Retrieving data
+    cursor.execute("SELECT * FROM DHT_data ORDER BY timestamp DESC LIMIT 1;")
+
+    #Fetching the result
+    data = cursor.fetchall();
+
+    return jsonify({'num' : data['temperature']})
+    print(result)
 
 
 if __name__ == '__main__':
