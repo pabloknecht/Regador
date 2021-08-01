@@ -40,7 +40,10 @@ def process():
     #Fetching the result
     data = cursor.fetchall();
     print(data)
-    return jsonify({'num' : "{0:0.1f} *C".format(data[0][2])}, {'timestamp' : data[0][1]})
+    temperature = "{0:0.1f} *C".format(data[0][2])
+    humidity = "{0:0.1f} %".format(data[0][3])
+    timestamp = data[0][1]
+    return jsonify({'temperature' : temperature, 'timestamp' : timestamp, 'humidity' : humidity})
     
 
 
