@@ -1,5 +1,5 @@
-var samples = 20;
-var speed = 250;
+var samples = 2880;
+var speed = 10000;
 let timeout = samples * speed;
 var values = [];
 var labels = [];
@@ -41,7 +41,7 @@ function initialize() {
         }],
         yAxes: [{
           ticks: {
-            max: 1,
+            max: 30,
             min: -1
           }
         }]
@@ -62,7 +62,7 @@ function addEmptyValues(arr, n) {
 function rescale() {
   var padding = [];
   
-  addEmptyValues(padding, 10);
+  addEmptyValues(padding, 2880);
   values.splice.apply(values, padding);
   
   scale++;
