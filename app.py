@@ -7,7 +7,7 @@ import time
 import sqlite3
 import threading
 import datetime
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.backends.backend_tkagg import FigureCanvasAgg
 from matplotlib.figure import Figure
 import io
 
