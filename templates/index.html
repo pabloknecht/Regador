@@ -13,7 +13,7 @@
 
     <script>
         $(document).ready(function(){
-            $("button").click(function(){
+            setInterval(function(){
                 $.ajax({url: "/process",
                         type: "POST",
                 success: function(result){
@@ -22,7 +22,7 @@
                     document.getElementById("temperature").innerHTML = result["temperature"];
                     document.getElementById("humidity").innerHTML = result["humidity"];
                 }});
-            });
+            }, 10000);
         });
     </script>
 
