@@ -60,7 +60,8 @@ def process():
     humidity = "{0:0.1f} %".format(data[0][2])
     timestamp = data[0][0]
     return jsonify({'temperature' : temperature, 'timestamp' : timestamp, 'humidity' : humidity})
-    
+
+"""""   
 @app.route("/history", methods=["POST", "GET"])
 def history():
     if request.method == "GET":
@@ -68,7 +69,7 @@ def history():
         ys = temps
         fig = Figure()
         axis = fig.add_subplot(1, 1, 1)
-        axis.set_title("Temperature [°C]")
+        axis.set_title("Temperature [*C]")
         axis.set_xlabel("Samples")
         axis.grid(True)
         xs = range(numSamples)
@@ -80,7 +81,7 @@ def history():
         response.mimetype = 'image/png'
         return response
         #return render_template("history.html")
-
+"""
 
 
 
