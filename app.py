@@ -39,9 +39,9 @@ def process():
 
     #Fetching the result
     data = cursor.fetchall();
-
+    print(data)
     return jsonify({'num' : data[0]['temperature']})
-    print(result)
+    
 
 
 if __name__ == '__main__':
