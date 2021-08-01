@@ -21,11 +21,11 @@ def after_request(response):
     return response
 
 
-@app.route("/", methods="GET")
+@app.route("/", methods=["GET"])
 def index():
         return render_template("index.html")
 
-@app.route("/process", methods="POST")
+@app.route("/process", methods=["POST"])
 def process():
     return jsonify({'num' : 13})
 
