@@ -13,16 +13,12 @@ app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-#Open DB connection
-global database
-database = sqlite3.connect('data.db')
-
-#Creating a cursor object using the cursor() method
-global cursor 
-cursor = database.cursor()
-
 #define get data method
 def getHistData(samples):
+
+    #Open DB connection
+    database = sqlite3.connect('data.db')
+    cursor = database.cursor()
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT = ?;", samples)
     data = cursor.fetchall()
 
@@ -35,8 +31,13 @@ def getHistData(samples):
         temps.append(row[1])
         hums.append(row[2])
     return dates, temps, hums
+    
+    database.close()
 
 def getLastMeasure():
+    #Open DB connection
+    database = sqlite3.connect('data.db')
+    cursor = database.cursor()
     #Retrieving data
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT 1;")
     #Fetching the result
