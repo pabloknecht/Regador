@@ -5,12 +5,41 @@
 {% endblock %}
 
 {% block main %}
-    <canvas id="chart0" style="width:512px;height:320px"></canvas>
-    
-    <canvas id="chart1" style="width:512px;height:320px"></canvas>
+
+    <h1 id="num"></h1>
+
+
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.ajax({url: "/index",
+                        type: "POST",
+                success: function(result){
+                    console.log(result);
+                    document.getElementById("num").innerHTML = result;
+                }});
+            });
+        });
+    </script>
+
+    <button id="btn">Get External Content</button>
 {% endblock %}
 
 
+
+
+setInterval(function(){$.ajax({
+    url: '/update',
+    type: 'POST',
+    success: function(response) {
+        console.log(response);
+        $("#num").html(response["value"]);
+        $("#time").html(response["time"]);
+    },
+    error: function(error) {
+        console.log(error);
+    }
+})}, 1000);
 
 
 

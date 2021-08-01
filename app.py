@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -21,12 +21,19 @@ def after_request(response):
     return response
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods="GET")
 def index():
-    return render_template("index.html")
+        return render_template("index.html")
+
+@app.route("/process", methods="POST")
+def process():
+    return jsonify({'num' : 13})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
 
 # select datetime(timestamp, 'localtime') as timestamp, temperature, humidity from weather;
+# SELECT * FROM DHT_data ORDER BY timestamp DESC LIMIT 1;
