@@ -99,7 +99,7 @@ def plot_temp():
 	ys = temps
 	fig = Figure()
 	axis = fig.add_subplot(1, 1, 1)
-	axis.set_title("Temperature [°C]")
+	axis.set_title("Temperature [*C]")
 	axis.set_xlabel("Samples")
 	axis.grid(True)
 	xs = range(numSamples)
@@ -110,7 +110,7 @@ def plot_temp():
 	response = make_response(output.getvalue())
 	response.mimetype = 'image/png'
 	return response
-    
+
 @app.route('/plot/hum')
 def plot_hum():
 	times, temps, hums = getHistData(numSamples)
