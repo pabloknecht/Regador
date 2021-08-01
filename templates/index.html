@@ -16,7 +16,7 @@
                         type: "POST",
                 success: function(result){
                     console.log(result);
-                    document.getElementById("num").innerHTML = result;
+                    document.getElementById("num").innerHTML = result["num"];
                 }});
             });
         });
