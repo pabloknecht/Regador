@@ -40,7 +40,7 @@ def process():
     #Fetching the result
     data = cursor.fetchall();
 
-    return jsonify({'num' : data['temperature']})
+    return jsonify({'num' : data[0]['temperature']})
     print(result)
 
 
