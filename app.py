@@ -34,6 +34,12 @@ def getHistData(samples):
         hums.append(row[2])
     return dates, temps, hums
 
+def getLastMeasure():
+    #Retrieving data
+    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT 1;")
+    #Fetching the result
+    data = cursor.fetchall();
+    return data
 
 # Ensure responses aren't cached
 @app.after_request
@@ -50,11 +56,7 @@ def index():
 
 @app.route("/process", methods=["POST"])
 def process():
-    #Retrieving data
-    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT 1;")
-
-    #Fetching the result
-    data = cursor.fetchall();
+    data = getLastMeasure()
     print(data)
     temperature = "{0:0.1f} *C".format(data[0][1])
     humidity = "{0:0.1f} %".format(data[0][2])
