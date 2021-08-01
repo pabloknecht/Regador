@@ -19,6 +19,13 @@ def main():
         #Register value to database
         database.execute("INSERT INTO weather (timestamp, temperature, humidity) VALUES (CURRENT_TIMESTAMP, ?, ?)", (t, h))
         database.commit()
+
+        #Verify the row count and delete the old
+        cursor = database.cursor()
+        cursor.execute("SELECT COUNT(*) FROM weather")
+        result = cursor.fetchall()
+        if result[0] > 3153600:
+            print("1 year of data")
         
         time.sleep(10) #Wait 10 seconds and read again
 

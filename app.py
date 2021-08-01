@@ -13,6 +13,28 @@ app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+#Open DB connection
+database = sqlite3.connect('data.db')
+
+#Creating a cursor object using the cursor() method
+cursor = database.cursor()
+
+#define get data method
+def getHistData(samples):
+    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT = ?;", samples)
+    data = cursor.fetchall()
+
+    dates = []
+    temps = []
+    hums = []
+
+    for row in reversed(data):
+        dates.append(row[0])
+        temps.append(row[1])
+        hums.append(row[2])
+    return dates, temps, hums
+
+
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
@@ -28,23 +50,37 @@ def index():
 
 @app.route("/process", methods=["POST"])
 def process():
-    #Open DB connection
-    database = sqlite3.connect('data.db')
-
-    #Creating a cursor object using the cursor() method
-    cursor = database.cursor()
-
     #Retrieving data
-    cursor.execute("SELECT * FROM weather ORDER BY timestamp DESC LIMIT 1;")
+    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT 1;")
 
     #Fetching the result
     data = cursor.fetchall();
     print(data)
-    temperature = "{0:0.1f} *C".format(data[0][2])
-    humidity = "{0:0.1f} %".format(data[0][3])
-    timestamp = data[0][1]
+    temperature = "{0:0.1f} *C".format(data[0][1])
+    humidity = "{0:0.1f} %".format(data[0][2])
+    timestamp = data[0][0]
     return jsonify({'temperature' : temperature, 'timestamp' : timestamp, 'humidity' : humidity})
     
+@app.route("/history", methods=["POST", "GET"])
+def history():
+    if request.method == "GET":
+        dates, temps, hums = getHistData(8640)
+        ys = temps
+        fig = Figure()
+        axis = fig.add_subplot(1, 1, 1)
+        axis.set_title("Temperature [°C]")
+        axis.set_xlabel("Samples")
+        axis.grid(True)
+        xs = range(numSamples)
+        axis.plot(xs, ys)
+        canvas = FigureCanvas(fig)
+        output = io.BytesIO()
+        canvas.print_png(output)
+        response = make_response(output.getvalue())
+        response.mimetype = 'image/png'
+        return response
+        #return render_template("history.html")
+
 
 
 
