@@ -35,7 +35,7 @@ def process():
     cursor = database.cursor()
 
     #Retrieving data
-    cursor.execute("SELECT * weather ORDER BY timestamp DESC LIMIT 1;")
+    cursor.execute("SELECT * FROM weather ORDER BY timestamp DESC LIMIT 1;")
 
     #Fetching the result
     data = cursor.fetchall();
