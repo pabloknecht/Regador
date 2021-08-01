@@ -14,9 +14,11 @@ app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 #Open DB connection
+global database
 database = sqlite3.connect('data.db')
 
 #Creating a cursor object using the cursor() method
+global cursor 
 cursor = database.cursor()
 
 #define get data method
