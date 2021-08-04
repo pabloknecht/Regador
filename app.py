@@ -21,7 +21,7 @@ def getHistData(samples):
     #Open DB connection
     database = sqlite3.connect('data.db')
     cursor = database.cursor()
-    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT = ?;", samples)
+    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT = number;", {"number" : samples})
     data = cursor.fetchall()
 
     dates = []
@@ -32,7 +32,7 @@ def getHistData(samples):
         dates.append(row[0])
         temps.append(row[1])
         hums.append(row[2])
-        
+
     database.close()
 
     return dates, temps, hums
