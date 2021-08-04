@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session, jsonify, send_file, make_response, request
+from flask import Flask, flash, redirect, render_template, request, jsonify, request
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -75,7 +75,7 @@ def process():
     return jsonify({'temperature' : temperature, 'timestamp' : timestamp, 'humidity' : humidity})
 
   
-@app.route("/history", methods=["POST", "GET"])
+@app.route("/history", methods=["GET", "POST"])
 def history():
     if request.method == "GET":
         #Get 1 day of data
