@@ -37,6 +37,7 @@ def getHistData(samples):
 
     return dates, temps, hums
     
+getHistData(800)
     
 
 def getLastMeasure():
@@ -49,6 +50,7 @@ def getLastMeasure():
     data = cursor.fetchall();
     database.close()
     return data
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -77,7 +79,7 @@ def process():
 def history():
     if request.method == "GET":
         #Get 1 day of data
-        date, temperature, humidity = getHistData(864)
+        date, temperature, humidity = getHistData(80)
         render_template("history.html", date = date, temperature = temperature, humidity = humidity)
     else:
         render_template("history.html")
