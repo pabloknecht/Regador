@@ -23,10 +23,10 @@ def main():
             #Register value to database
             database.execute("INSERT INTO weather (timestamp, temperature, humidity) VALUES (CURRENT_TIMESTAMP, ?, ?)", (t, h))
             database.commit()
-            time.sleep(60) #Wait 60 seconds and read again
         else:
             firstReading = False
-
+            
+        time.sleep(60) #Wait 60 seconds and read again
 
 if __name__ == "__main__":
     main()
