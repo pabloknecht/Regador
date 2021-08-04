@@ -79,7 +79,10 @@ def process():
 def history():
     if request.method == "GET":
         #Get 1 day of data
-        date, temperature, humidity = getHistData(80)
+        #date, temperature, humidity = getHistData(80)
+        date = [1,2]
+        temperature = [1,2]
+        humidity = [1,2]
         render_template("history.html", date = date, temperature = temperature, humidity = humidity)
     else:
         render_template("history.html")
