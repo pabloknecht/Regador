@@ -32,9 +32,12 @@ def getHistData(samples):
         dates.append(row[0])
         temps.append(row[1])
         hums.append(row[2])
+        
+    database.close()
+
     return dates, temps, hums
     
-    database.close()
+    
 
 def getLastMeasure():
     #Open DB connection
@@ -44,6 +47,7 @@ def getLastMeasure():
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT 1;")
     #Fetching the result
     data = cursor.fetchall();
+    database.close()
     return data
 
 # Ensure responses aren't cached
@@ -72,7 +76,9 @@ def process():
 @app.route("/history", methods=["POST", "GET"])
 def history():
     if request.method == "GET":
-        render_template("history.html")
+        #Get 1 day of data
+        date, temperature, humidity = getHistData(864)
+        render_template("history.html", date = date, temperature = temperature, humidity = humidity)
     else:
         render_template("history.html")
 
