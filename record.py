@@ -10,9 +10,9 @@ def main():
     database = sqlite3.connect('data.db', 8)
     database.execute("PRAGMA journal_mode=WAL")
 
-    while True:
-        firstReading = True
+    firstReading = True
 
+    while True:
         #Read Temp and Hum from DHT22
         h,t = dht.read_retry(dht.DHT22, pinDHT)
         
