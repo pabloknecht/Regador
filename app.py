@@ -83,7 +83,7 @@ def history():
         date = [1,2]
         temperature = [1,2]
         humidity = [1,2]
-        render_template("history.html", date = date, temperature = temperature, humidity = humidity)
+        render_template("history.html")
     else:
         render_template("history.html")
 
