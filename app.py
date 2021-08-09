@@ -86,19 +86,12 @@ def history():
     standardPeriod = 24
 
     date = request.args.get('date', yesterday.strftime("%Y-%m-%d"))
-    time = request.arg('time', yesterday.strftime("%H%3A%M"))
-    period = request.arg('period', str(standardPeriod))
+    time = request.args.get('time', yesterday.strftime("%H%3A%M"))
+    period = request.args.get('period', str(standardPeriod))
 
-    
     print("date =", date)
     print("time =", time)
     print("period =", period)
-
-    # dd/mm/YY H:M:S
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    print("date and time =", dt_string)	
-
-
 
     #Get 1 day of data
     dates, temperature, humidity = getHistData(8640)
