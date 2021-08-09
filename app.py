@@ -1,14 +1,6 @@
-from flask import Flask, flash, redirect, render_template, request, jsonify, request
-from tempfile import mkdtemp
-from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
-from werkzeug.security import check_password_hash, generate_password_hash
-import Adafruit_DHT as dht
-import time
+from flask import Flask, render_template, request, jsonify, request
 import sqlite3
-import threading
 import datetime
-
-
 
 # Configure application
 app = Flask(__name__)
@@ -36,8 +28,6 @@ def getHistData(samples):
     database.close()
 
     return dates, temps, hums
-    
-getHistData(800)
     
 
 def getLastMeasure():
