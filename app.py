@@ -15,8 +15,8 @@ def getHistData(startDate, duration):
     cursor = database.cursor()
 
     #Process the function parameters
-    endDate = (datetime.strptime(startDate, '%Y-%m-%d %H:%M') - datetime.timedelta(hours=duration)).strftime('%Y-%m-%d %H:%M')
-    
+    endDate = (datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M') - datetime.timedelta(hours=duration)).strftime('%Y-%m-%d %H:%M')
+
     #Querry the data
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=? AND datetime(timestamp, 'localtime') <= ? ORDER BY timestamp DESC;", (startDate, endDate))
     data = cursor.fetchall()
