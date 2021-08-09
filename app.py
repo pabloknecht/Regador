@@ -16,17 +16,20 @@ def getHistData(startDate, duration):
 
     #Process the function parameters
     endDate = (datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M') - datetime.timedelta(hours=int(duration))).strftime('%Y-%m-%d %H:%M')
+    print("#######################################")
+    print("startDate = ", startDate)
+    print("endDate = ", endDate)
 
     #Querry the data
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=? AND datetime(timestamp, 'localtime') <= ? ORDER BY timestamp DESC;", (startDate, endDate))
     data = cursor.fetchall()
 
-    # "SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=':startDate' AND datetime(timestamp, 'localtime') <= 'endDate' ORDER BY timestamp DESC", {"startDate" : startDate, "endDate" = endDate}
-    #cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=':startDate' AND datetime(timestamp, 'localtime') <= 'endDate' ORDER BY timestamp DESC", {"startDate" : startDate, "endDate" = endDate})
-    # cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT :number;", {"number" : samples})
     dates = []
     temps = []
     hums = []
+
+    print("dates = ", dates)
+    print("###########################")
 
     for row in reversed(data):
         dates.append(row[0])
