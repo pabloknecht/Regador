@@ -78,15 +78,33 @@ def process():
 @app.route("/history", methods=["GET"])
 def history():
 
+    #getting today and yesterday date
+    now = datetime.datetime.now()
+    yesterday = now - datetime.timedelta(days=1)
+
+    # 24h of standard duration of the request
+    standardPeriod = 24
+
+    date = request.args.get('date', yesterday.strftime("%Y-%m-%d"))
+    time = request.arg('time', yesterday.strftime("%H%3A%M"))
+    period = request.arg('period', str(standardPeriod))
+
+    
+    print("date =", date)
+    print("time =", time)
+    print("period =", period)
+
+    # dd/mm/YY H:M:S
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print("date and time =", dt_string)	
+
+
+
     #Get 1 day of data
-    date, temperature, humidity = getHistData(8640)
-    return render_template("history.html", date = date, temperature = temperature, humidity = humidity)
+    dates, temperature, humidity = getHistData(8640)
+    return render_template("history.html", dates = dates, temperature = temperature, humidity = humidity)
 
-    day = request.args.get("day", )
-    month = request.args['month']
-    year = request.args['year']
-    hour = request.args['hour']
-
+    
 
 
 

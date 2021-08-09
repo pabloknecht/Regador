@@ -23,7 +23,7 @@
 	var lineChart = new Chart(ctx, {
 		type: "line",
 		data: {
-			labels: {{ date | safe }},
+			labels: {{ dates | safe }},
 			datasets: [
 				{
 					label: "Temperature", 
@@ -45,7 +45,7 @@
 		<label for="birthday">Starting date:</label>
 		<input type="date" id="date" name="date">
 		<input type="time" id="time" name="time">
-		<input type="number" id="period" name="period" placeholder="Duration">
+		<input type="number" id="period" name="period" placeholder="Duration (h)">
 		<button class="btn btn-primary" type="submit"> Submit </button>
 	</form>
 </div>
