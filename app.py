@@ -75,14 +75,18 @@ def process():
     return jsonify({'temperature' : temperature, 'timestamp' : timestamp, 'humidity' : humidity})
 
   
-@app.route("/history", methods=["GET", "POST"])
+@app.route("/history", methods=["GET"])
 def history():
-    if request.method == "GET":
-        #Get 1 day of data
-        date, temperature, humidity = getHistData(8640)
-        return render_template("history.html", date = date, temperature = temperature, humidity = humidity)
-    else:
-        return render_template("history.html")
+
+    #Get 1 day of data
+    date, temperature, humidity = getHistData(8640)
+    return render_template("history.html", date = date, temperature = temperature, humidity = humidity)
+
+    day = request.args.get("day", )
+    month = request.args['month']
+    year = request.args['year']
+    hour = request.args['hour']
+
 
 
 
