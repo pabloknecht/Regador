@@ -8,14 +8,22 @@ app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 #define get data method
-def getHistData(samples):
+def getHistData(startDate, duration):
 
     #Open DB connection
     database = sqlite3.connect('data.db')
     cursor = database.cursor()
-    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT :number;", {"number" : samples})
+
+    #Process the function parameters
+    endDate = (datetime.strptime(startDate, '%Y-%m-%d %H:%M') - datetime.timedelta(hours=duration)).strftime('%Y-%m-%d %H:%M')
+    
+    #Querry the data
+    cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=? AND datetime(timestamp, 'localtime') <= ? ORDER BY timestamp DESC;", (startDate, endDate))
     data = cursor.fetchall()
 
+    # "SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=':startDate' AND datetime(timestamp, 'localtime') <= 'endDate' ORDER BY timestamp DESC", {"startDate" : startDate, "endDate" = endDate}
+    #cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE datetime(timestamp, 'localtime') >=':startDate' AND datetime(timestamp, 'localtime') <= 'endDate' ORDER BY timestamp DESC", {"startDate" : startDate, "endDate" = endDate})
+    # cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather ORDER BY timestamp DESC LIMIT :number;", {"number" : samples})
     dates = []
     temps = []
     hums = []
@@ -75,16 +83,19 @@ def history():
     # 24h of standard duration of the request
     standardPeriod = 24
 
+    #processing date and time formats
     date = request.args.get('date', yesterday.strftime("%Y-%m-%d"))
     time = request.args.get('time', yesterday.strftime("%H:%M"))
+    timestamp = date + " " + time
     period = request.args.get('period', str(standardPeriod))
 
     print("date =", date)
     print("time =", time)
     print("period =", period)
+    print("timestamp =", timestamp)
 
-    #Get 1 day of data
-    dates, temperature, humidity = getHistData(8640)
+    #Get data
+    dates, temperature, humidity = getHistData(timestamp, period)
     return render_template("history.html", dates = dates, temperature = temperature, humidity = humidity)
 
     
