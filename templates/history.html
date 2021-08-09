@@ -26,7 +26,7 @@
 			labels: {{ date | safe }},
 			datasets: [
 				{
-					label: "Data points", 
+					label: "Temperature", 
 					data: {{ temperature | safe }},
 					fill: false,
 					borderColer: "rgb(75,192,192)",
@@ -40,5 +40,15 @@
 	});
 </script>
 	
+<div>
+	
+
+	<form method="get" action="/history">
+		<label for="birthday">Starting date:</label>
+		<input type="date" id="date" name="date">
+		<button class="btn btn-primary" type="submit"> Submit </button>
+	</form>
+
+</div>
 
 {% endblock %}
