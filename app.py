@@ -86,7 +86,7 @@ def history():
     standardPeriod = 24
 
     date = request.args.get('date', yesterday.strftime("%Y-%m-%d"))
-    time = request.args.get('time', yesterday.strftime("%H%3A%M"))
+    time = request.args.get('time', yesterday.strftime("%H:%M"))
     period = request.args.get('period', str(standardPeriod))
 
     print("date =", date)
