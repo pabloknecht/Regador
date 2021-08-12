@@ -13,6 +13,7 @@ def getHistData(startDate, duration):
 
     #Open DB connection
     database = sqlite3.connect('data.db')
+    database.set_trace_callback(print)
     cursor = database.cursor()
 
     ## Process the function parameters
@@ -29,6 +30,7 @@ def getHistData(startDate, duration):
 
     #Querry the data
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE timestamp >=?  AND timestamp <=? ORDER BY timestamp DESC;", (startDate, endDate))
+    
     data = cursor.fetchall()
 
     dates = []
