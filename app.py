@@ -20,8 +20,8 @@ def getHistData(startDate, duration):
     #Convert startDate to utc timezone and to datetime object
     tz = datetime.datetime.now().astimezone().tzinfo #get local timezone to localize date
     startDateUTC = ((datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M')).replace(tzinfo=tz)).astimezone(datetime.timezone.utc)#inform local timezone and convert to utc
-    startDate = startDateUTC.isoformat()
-    endDate = (startDateUTC + datetime.timedelta(hours=duration)).isoformat()
+    startDate = startDateUTC.strftime('%Y-%m-%d %H:%M')
+    endDate = (startDateUTC + datetime.timedelta(hours=duration)).strftime('%Y-%m-%d %H:%M')
     print("#######################################")
     print("startDate = ", startDate)
     print("endDate = ", endDate)
