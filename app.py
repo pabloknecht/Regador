@@ -24,6 +24,8 @@ def getHistData(startDate, duration):
     print("#######################################")
     print("startDate = ", startDate)
     print("endDate = ", endDate)
+    print('duration = ', duration)
+    print("##############################")
 
     #Querry the data
     cursor.execute("SELECT datetime(timestamp, 'localtime') as timestamp, temperature, humidity FROM weather WHERE timestamp >=?  AND timestamp <=? ORDER BY timestamp DESC;", (startDate, endDate))
