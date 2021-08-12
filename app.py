@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, request
 import sqlite3
 import datetime
 
+
 # Configure application
 app = Flask(__name__)
 
@@ -16,7 +17,8 @@ def getHistData(startDate, duration):
 
     ## Process the function parameters
     #Convert startDate to utc timezone and to datetime object
-    startDateUTC = (datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M')).replace(tzinfo=datetime.timezone.utc)
+    tz = datetime.datetime.now().astimezone().tzinfo
+    startDateUTC = (datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M')).replace(tzinfo=tz)
     startDate = startDateUTC.strftime('%Y-%m-%d %H:%M')
     endDate = (startDateUTC + datetime.timedelta(hours=int(duration))).strftime('%Y-%m-%d %H:%M')
     print("#######################################")
