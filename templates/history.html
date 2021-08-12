@@ -4,7 +4,7 @@
 	<!-- JS Chart scripts-->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title> Temperature Chart</title>
+	<title> History </title>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 {% endblock %}
 
@@ -43,10 +43,10 @@
 	
 <div>
 	<form method="get" action="/history">
-		<label for="birthday">Starting date:</label>
-		<input type="date" id="date" name="date">
-		<input type="time" id="time" name="time">
-		<input type="number" id="period" name="period" value="{{value}}" placeholder="Duration (h)">
+		<label for="start_date">Starting date:</label>
+		<input type="date" id="date" name="date" value="{{pre_date}}">
+		<input type="time" id="time" name="time" value="{{pre_time}}">
+		<input type="number" id="period" name="period" value="{{pre_period}}" placeholder="Duration (h)">
 		<button class="btn btn-primary" type="submit"> Submit </button>
 	</form>
 </div>

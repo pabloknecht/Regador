@@ -101,7 +101,7 @@ def history():
 
     #Get data
     dates, temperature, humidity = getHistData(timestamp, float(period))
-    return render_template("history.html", dates = dates, temperature = temperature, humidity = humidity, value=int(period))
+    return render_template("history.html", dates = dates, temperature = temperature, humidity = humidity, pre_period=int(period), pre_date = date, pre_time = time)
 
     
 
