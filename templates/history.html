@@ -14,12 +14,24 @@
 
 {% block main %}
 
+<h3 style="margin-bottom: 20px"> Period of Data </h3>
+<div style="margin-bottom: 20px">
+	<form method="get" action="/history">
+		<label for="start_date">Starting date:</label>
+		<input type="date" id="date" name="date" value="{{pre_date}}">
+		<input type="time" id="time" name="time" value="{{pre_time}}">
+		<input type="number" id="period" name="period" value="{{pre_period}}" placeholder="Duration (h)">
+		<button class="btn btn-primary" type="submit"> Submit </button>
+	</form>
+</div>
 
-<h3> HISTORICAL DATA </h3>
 
-<canvas id="lineChart" width="900" height="400"></canvas>
+<h3 style="margin-bottom: 20px"> Temperature Data </h3>
+
+<canvas style="margin-bottom: 20px" id="TempChart" width="1000" height="350"></canvas>
+<canvas style="margin-bottom: 20px" id="HumChart" width="1000" height="350"></canvas>
 <script>
-	var ctx = document.getElementById("lineChart").getContext("2d");
+	var ctx = document.getElementById("TempChart").getContext("2d");
 	var lineChart = new Chart(ctx, {
 		type: "line",
 		data: {
@@ -28,12 +40,36 @@
 				{
 					label: "Temperature", 
 					data: {{ temperature | safe }},
-					lineTension: 0.5,
+					//lineTension: 0.5,
 					fill: false,
-					borderDash: [5, 5],
-					borderColor: "rgb(0,0,0)",
-					pointBackgroundColor: "rgb(100,0,0)",
-					pointBorderColor: "rgb(150,0,0)",
+					//borderColor: "rgb(0,0,0)",
+					pointBackgroundColor: "rgb(180,0,0)",
+					pointBorderColor: "rgb(180,0,0)",
+					showLine: false
+				}
+			]
+		},
+		options: {
+			responsive: false
+
+		}
+	});
+
+	var ctx = document.getElementById("HumChart").getContext("2d");
+	var lineChart = new Chart(ctx, {
+		type: "line",
+		data: {
+			labels: {{ dates | safe }},
+			datasets: [
+				{
+					label: "Humidity", 
+					data: {{ humidity | safe }},
+					//lineTension: 0.5,
+					fill: false,
+					//borderColor: "rgb(0,0,0)",
+					pointBackgroundColor: "rgb(0,180,0)",
+					pointBorderColor: "rgb(0,180,0)",
+					showLine: false
 				}
 			]
 		},
@@ -46,19 +82,5 @@
 	
 
 
-
-
-
-
-
-<div>
-	<form method="get" action="/history">
-		<label for="start_date">Starting date:</label>
-		<input type="date" id="date" name="date" value="{{pre_date}}">
-		<input type="time" id="time" name="time" value="{{pre_time}}">
-		<input type="number" id="period" name="period" value="{{pre_period}}" placeholder="Duration (h)">
-		<button class="btn btn-primary" type="submit"> Submit </button>
-	</form>
-</div>
 
 {% endblock %}
