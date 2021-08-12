@@ -30,12 +30,26 @@
 					data: {{ temperature | safe }},
 					fill: false,
 					borderColer: "rgb(75,192,192)",
-					lineTension: 50
+					lineTension: 0.5
 				}
 			]
 		},
 		options: {
 			responsive: false
+			yAxes: [{
+				ticks: {
+					min: 0,
+					max: 100,
+					stepSize: 20,
+					autoSkip: true,
+        			maxTicksLimit: 20
+				}
+    }]
+}
+
+
+
+
 		}
 	});
 </script>
