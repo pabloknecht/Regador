@@ -20,7 +20,7 @@ def getHistData(startDate, duration):
     tz = datetime.datetime.now().astimezone().tzinfo #get local timezone to localize date
     startDateUTC = ((datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M')).replace(tzinfo=tz)).astimezone(datetime.timezone.utc)#inform local timezone and convert to utc
     startDate = startDateUTC.isoformat()
-    endDate = (startDateUTC + datetime.timedelta(hours=int(duration))).isoformat()
+    endDate = (startDateUTC + datetime.timedelta(hours=duration)).isoformat()
     print("#######################################")
     print("startDate = ", startDate)
     print("endDate = ", endDate)
@@ -87,7 +87,7 @@ def history():
     now = datetime.datetime.now()
     # 24h of standard duration of the request
     standardPeriod = 24
-    yesterday = now - datetime.timedelta(hours=1)
+    yesterday = now - datetime.timedelta(hours=standardPeriod)
 
     
 
