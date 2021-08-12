@@ -14,9 +14,11 @@ def getHistData(startDate, duration):
     database = sqlite3.connect('data.db')
     cursor = database.cursor()
 
-    #Process the function parameters
-    startDate = str(startDate)
-    endDate = (datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M') + datetime.timedelta(hours=int(duration))).strftime('%Y-%m-%d %H:%M')
+    ## Process the function parameters
+    #Convert startDate to utc timezone and to datetime object
+    startDateUTC = (datetime.datetime.strptime(startDate, '%Y-%m-%d %H:%M')).replace(tzinfo=datetime.timezone.utc)
+    startDate = startDateUTC.strftime('%Y-%m-%d %H:%M')
+    endDate = (startDateUTC + datetime.timedelta(hours=int(duration))).strftime('%Y-%m-%d %H:%M')
     print("#######################################")
     print("startDate = ", startDate)
     print("endDate = ", endDate)
@@ -90,18 +92,11 @@ def history():
     timestamp = date + " " + time
     period = request.args.get('period', str(standardPeriod))
 
-    print("date =", date)
-    print("time =", time)
-    print("period =", period)
-    print("timestamp =", timestamp)
-
     #Get data
     dates, temperature, humidity = getHistData(timestamp, period)
     return render_template("history.html", dates = dates, temperature = temperature, humidity = humidity)
 
     
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
