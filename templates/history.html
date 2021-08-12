@@ -28,9 +28,14 @@
 				{
 					label: "Temperature", 
 					data: {{ temperature | safe }},
-					fill: false,
-					borderColer: "rgb(75,192,192)",
-					lineTension: 0.5
+					lineTension: 0.5,
+					fill: true,
+					borderDash: [5, 5],
+					backgroundColor: "#e755ba",
+					pointBackgroundColor: "#55bae7",
+					pointBorderColor: "rgb(75,192,192)",
+					pointHoverBackgroundColor: "#55bae7",
+					pointHoverBorderColor: "#55bae7",
 				}
 			]
 		},
@@ -41,6 +46,13 @@
 	});
 </script>
 	
+
+
+
+
+
+
+
 <div>
 	<form method="get" action="/history">
 		<label for="start_date">Starting date:</label>
