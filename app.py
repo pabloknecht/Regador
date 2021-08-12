@@ -85,10 +85,11 @@ def history():
 
     #getting today and yesterday date
     now = datetime.datetime.now()
-    yesterday = now - datetime.timedelta(days=1)
-
     # 24h of standard duration of the request
     standardPeriod = 24
+    yesterday = now - datetime.timedelta(hours=1)
+
+    
 
     #processing date and time formats
     date = request.args.get('date', yesterday.strftime("%Y-%m-%d"))
@@ -97,7 +98,7 @@ def history():
     period = request.args.get('period', str(standardPeriod))
 
     #Get data
-    dates, temperature, humidity = getHistData(timestamp, period)
+    dates, temperature, humidity = getHistData(timestamp, float(period))
     return render_template("history.html", dates = dates, temperature = temperature, humidity = humidity)
 
     
