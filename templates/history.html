@@ -35,19 +35,7 @@
 			]
 		},
 		options: {
-			//responsive: false
-
-
-			yAxes: [{
-				ticks: {
-					min: 0,
-					max: 100,
-					stepSize: 20,
-				}
-    		}]
-
-
-
+			responsive: false
 
 		}
 	});
@@ -58,7 +46,7 @@
 		<label for="birthday">Starting date:</label>
 		<input type="date" id="date" name="date">
 		<input type="time" id="time" name="time">
-		<input type="number" id="period" name="period" placeholder="Duration (h)">
+		<input type="number" id="period" name="period" value="{{value}}" placeholder="Duration (h)">
 		<button class="btn btn-primary" type="submit"> Submit </button>
 	</form>
 </div>
